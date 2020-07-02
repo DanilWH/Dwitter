@@ -1,10 +1,16 @@
 package com.example.Quoter.repos;
 
-import com.example.Quoter.domain.Message;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
+
+import com.example.Quoter.domain.Quote;
 
 //This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 //CRUD refers Create, Read, Update, Delete
 
-public interface MessageRepo extends CrudRepository<Message, Integer> {
+public interface QuoteRepo extends CrudRepository<Quote, Integer> {
+    
+    List<Quote> findByTag(String tag);
+    
 }

@@ -1,13 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
-    	<div><h3>Messages list</h3></div>
-    	{{#messages}}
+    
+    	<div>
+    		<form method="post">
+    			<input type="text" name="text" placeholder="...Enter your quote..." />
+    			<input type="text" name="tag" placeholder="Tag" />
+    			<button type="submit">Add</button>
+    		</form>
+    	</div>
+    	
+    	<div><h3>Quotes list</h3></div>
+    	<form method="post" action="filter">
+    		<input type="text" name="filter" />
+    		<button type="submit">Search</button>
+    	</form>
+    	{{#quotes}}
     	<div>
         	<b>{{id}}</b>
         	<span>{{text}}</span>
         	<i>{{tag}}</i>
         </div>
-        {{/messages}}
+        {{/quotes}}
     </body>
 </html>
