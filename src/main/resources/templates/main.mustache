@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Getting Started: Serving Web Content</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
     <body>
-        <div>Hello, {{some}}!</div>
+    	<div><h3>Messages list</h3></div>
+    	{{#messages}}
+    	<div>
+        	<b>{{id}}</b>
+        	<span>{{text}}</span>
+        	<i>{{tag}}</i>
+        </div>
+        {{/messages}}
     </body>
 </html>
