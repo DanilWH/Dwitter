@@ -1,11 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
-    
+    	<form action="/logout" method="post">
+    		<input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <input type="submit" value="Sign Out"/>
+        </form>
+        
     	<div>
     		<form method="post">
     			<input type="text" name="text" placeholder="...Enter your quote..." />
     			<input type="text" name="tag" placeholder="Tag" />
+    			<input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     			<button type="submit">Add</button>
     		</form>
     	</div>
@@ -13,6 +18,7 @@
     	<div><h3>Quotes list</h3></div>
     	<form method="post" action="filter">
     		<input type="text" name="filter" />
+    		<input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     		<button type="submit">Search</button>
     	</form>
     	{{#quotes}}

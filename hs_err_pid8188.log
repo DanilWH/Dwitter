@@ -1,0 +1,21 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f1edf69c231, pid=8188, tid=8208
+#
+# JRE version: Java(TM) SE Runtime Environment (14.0.1+7) (build 14.0.1+7)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (14.0.1+7, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x4231]  ImageStrings::find(Endian*, char const*, int*, unsigned int)+0x71
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /mnt/12882D2A882D0DB3/java_work/Quoter/core.8188)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:36949 -Dmaven.home=EMBEDDED -Dclassworlds.conf=/mnt/12882D2A882D0DB3/java_work/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf6349227214322432359.tmp -Dmaven.multiModuleProjectDirectory=/mnt/12882D2A882D0DB3/java_work/Quoter -javaagent:/home/danil/eclipse/java-2020-03/eclipse/configuration/org.eclipse.osgi/217/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 org.codehaus.plexus.classworlds.launcher.Launcher -B spring-boot:run
+
+Host: 
