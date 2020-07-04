@@ -16,5 +16,5 @@ Introduction to:
  - PostgreSQL & pgAdmin4
 #### 3'rd commit
  - ...Spring (Continuation)...
-    - Spring Boot Security.
+    - Spring Boot Security is a Spring component that provides a user authorisation and security. Helps you to implement the built-in logic of login, sign out and authorization requre features.
  - CSRF(Cross-Site Request Forgery) token is used for preventing attempts of getting a malicious access to a server. What is does is it generates a unique token that is complex to guess by attackers so they aren't able to create a valid request.
