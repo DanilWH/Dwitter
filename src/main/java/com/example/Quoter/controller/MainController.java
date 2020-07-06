@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Quoter.domain.Quote;
+import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.QuoteRepo;
 
 @Controller
@@ -33,9 +35,13 @@ public class MainController {
     
     @PostMapping("/main")
     // the form will be sent to the same page where it was sent from.
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
+    public String add(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag, Map<String, Object> model
+    ) {
         // save the quote to the repository(database).
-        Quote quote = new Quote(text, tag);
+        Quote quote = new Quote(text, tag, user);
         this.quoteRepo.save(quote);
         
         return "redirect:/main";
