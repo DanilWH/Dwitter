@@ -1,6 +1,5 @@
 package com.example.Quoter.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,17 @@ public class MainController {
     }
     
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
-        Iterable<Quote> quotes = this.quoteRepo.findAll();
+    public String main(@RequestParam(required=false, defaultValue="") String filter, Map<String, Object> model) {
+        Iterable<Quote> quotes;
+        
+        if (filter != null && !filter.isEmpty())
+            // get the quotes that have the particular tag.
+            quotes = this.quoteRepo.findByTag(filter);
+        else
+            quotes = this.quoteRepo.findAll();
+        
         model.put("quotes", quotes);
+        model.put("filter", filter);
         
         return "main";
     }
@@ -47,14 +54,16 @@ public class MainController {
         return "redirect:/main";
     }
     
+    /*
     @PostMapping("filter")
     public String filter(@RequestParam String filter, Map<String, Object> model) {
         if (filter != null && filter.isEmpty()) return "redirect:/main";
         
-        // get the quotes that has the particular tag.
+        // get the quotes that have the particular tag.
         List<Quote> filtered_quotes = this.quoteRepo.findByTag(filter);
         model.put("quotes", filtered_quotes);
         
         return "main";
     }
+    */
 }

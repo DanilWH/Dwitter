@@ -22,3 +22,5 @@ Introduction to:
  - Hebirnate. Adding the relation many-to-one (many quotes to one user) between quotes and the user.
  - Getting the information of the current user by his/her username.
  - Using user information for getting them from the database.
+#### 5'th commit
+ - Freemarker template engine.
