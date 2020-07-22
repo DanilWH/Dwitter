@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    private Long id;
     
     private String username;
     private String password;
@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING) // we want the enum is stored as a string.
     private Set<Role> roles;
     
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -57,7 +57,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
     
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
     

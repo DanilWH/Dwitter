@@ -24,3 +24,5 @@ Introduction to:
  - Using user information for getting them from the database.
 #### 5'th commit
  - Freemarker template engine.
+#### 6'th commit
+ - Delimiting access rights.
