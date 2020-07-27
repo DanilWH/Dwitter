@@ -21,6 +21,8 @@ public class Quote {
     @JoinColumn(name = "user_id")
     private User author;
     
+    private String filename;
+    
     public Quote() {
         // create an empty constructor so that
         // Spring is able to create an instance of the class.
@@ -53,6 +55,10 @@ public class Quote {
         return this.author;
     }
     
+    public String getFilename() {
+        return this.filename;
+    }
+    
     public void setId(Integer id) {
         this.id = id;
     }
@@ -67,5 +73,9 @@ public class Quote {
     
     public void setAuthor(User author) {
         this.author = author;
+    }
+    
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

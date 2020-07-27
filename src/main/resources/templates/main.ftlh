@@ -7,9 +7,10 @@
     	<span><a href="/user">User list</a></span>
         
     	<div>
-    		<form method="post">
+    		<form method="post" enctype="multipart/form-data">
     			<input type="text" name="text" placeholder="...Enter your quote..." />
     			<input type="text" name="tag" placeholder="Tag" />
+    			<input type="file" name="file" />
     			<input type="hidden" name="_csrf" value="${_csrf.token}" />
     			<button type="submit">Add</button>
     		</form>
@@ -27,6 +28,11 @@
 	        	<span>${quote.text}</span>
 	        	<i>${quote.tag}</i>
 	        	<strong>${quote.authorName}</strong>
+	        	<div>
+	        		<#if quote.filename??>
+	        			<img src="/img/${quote.filename}" />
+	        		</#if>
+	        	</div>
 	        </div>
 	    <#else>
 	    	<p>There are no quotes.</p>

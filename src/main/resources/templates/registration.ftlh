@@ -4,12 +4,8 @@
 <@c.page>
 	<h4>Sign up page</h4>
 	
-	<#if message??>
-   		<p>${message}</p>
-   	</#if>
+   	<p>${message?ifExists}</p>
    		
-   		
-    
     <@ac.auth path="/registration" />
     
 </@c.page>

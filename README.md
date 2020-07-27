@@ -26,3 +26,6 @@ Introduction to:
  - Freemarker template engine.
 #### 6'th commit
  - Delimiting access rights.
+### 7'th commit
+ - Uploading files to the server.
+ - Distributing static data.
