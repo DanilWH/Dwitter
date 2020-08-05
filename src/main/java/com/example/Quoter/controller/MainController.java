@@ -61,10 +61,10 @@ public class MainController {
         
         if (file != null && !file.isEmpty()) {
             // create the directory if it doesn't exist.
-            File uploadDir = new File(uploadPath);
+            File uploadDir = new File(this.uploadPath);
             
             if (!uploadDir.exists())
-                uploadDir.mkdir();
+                uploadDir.mkdirs();
             
             // create a new unique filename to avoid collisions.
             String uuidFilename = UUID.randomUUID().toString();

@@ -6,6 +6,6 @@
 	
    	<p>${message?ifExists}</p>
    		
-    <@ac.auth path="/registration" />
+    <@ac.auth "/registration" true />
     
 </@c.page>

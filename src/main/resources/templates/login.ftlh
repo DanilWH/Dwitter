@@ -5,8 +5,6 @@
 
 	<h4>Login page</h4>
 	
-	<@ac.auth path="/login" />
-	
-	<a href="/registration" >Registration</a>
+	<@ac.auth "/login" false/>
 	
 </@c.page>
