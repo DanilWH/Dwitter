@@ -1,5 +1,5 @@
 <#include "security.ftlh" />
-<#import "auth_common.ftlh" as ac>
+<#import "auth_common.ftlh" as ac />
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="/">Quoter</a>

@@ -4,7 +4,9 @@
 <@c.page>
 
 	<h4>Login page</h4>
-	
+
+	<p>${message?ifExists}</p>
+
 	<@ac.auth "/login" false/>
 	
 </@c.page>

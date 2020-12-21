@@ -31,3 +31,5 @@ Introduction to:
  - Distributing static data.
 #### 8'th commit
  - Introduction with Bootstrap - a framework that allows you to use designed templates in order to make your site appearance more attractive.
+#### 9'th commit
+ - Spring Boot Mail: Sending emails to users. Activation a user account using an activation code sent by email.
