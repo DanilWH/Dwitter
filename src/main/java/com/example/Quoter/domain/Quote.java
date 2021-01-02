@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 public class Quote {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     
     private String text;
     private String tag;
@@ -39,7 +39,7 @@ public class Quote {
         return (this.author != null)? this.author.getUsername() : "<anonymus>";
     }
     
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
     
@@ -59,7 +59,7 @@ public class Quote {
         return this.filename;
     }
     
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
