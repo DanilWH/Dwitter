@@ -14,7 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,10 +28,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     
+    @NotBlank(message = "Username can't be empty")
     private String username;
+    @NotBlank(message = "Password can't be empty")
     private String password;
+    @Transient
+    @NotBlank(message = "Password confirmation can't be empty")
+    private String confirmPassword;
     private boolean active;
 
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email can't be empty")
     private String email;
     private String activationCode;
     
@@ -86,6 +96,14 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getConfirmPassword() {
+        return this.confirmPassword;
     }
 
     public void setEmail(String email) {

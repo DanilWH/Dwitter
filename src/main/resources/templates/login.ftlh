@@ -5,7 +5,11 @@
 
 	<h4>Login page</h4>
 
-	<p>${message?ifExists}</p>
+    <#if Session?? && Session.SPRING_SECURITY_LAST_EXCEPTION??>
+        <div class="alert alert-danger" role="alert">
+            ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
+        </div>
+    </#if>
 
 	<@ac.auth "/login" false/>
 	

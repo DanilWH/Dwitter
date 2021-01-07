@@ -5,18 +5,22 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import javax.validation.Valid;
 
 import com.example.Quoter.domain.Quote;
 import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.QuoteRepo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MainController {
@@ -52,33 +56,46 @@ public class MainController {
     // the form will be sent to the same page where it was sent from.
     public String add(
             @AuthenticationPrincipal User user,
-            @RequestParam String text,
+            @Valid Quote quote,
+            BindingResult bindingResult,
             @RequestParam MultipartFile file,
-            @RequestParam String tag, Map<String, Object> model
+            Model model
     ) throws IOException {
-        // save the quote to the repository(database).
-        Quote quote = new Quote(text, tag, user);
-        
-        if (file != null && !file.isEmpty()) {
-            // create the directory if it doesn't exist.
-            File uploadDir = new File(this.uploadPath);
+        quote.setAuthor(user);
+
+        if (bindingResult.hasErrors()) {
+            Map <String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("quote", quote);
+        } else {
+            if (file != null && !file.isEmpty()) {
+                // create the directory if it doesn't exist.
+                File uploadDir = new File(this.uploadPath);
+
+                if (!uploadDir.exists())
+                    uploadDir.mkdirs();
+
+                // create a new unique filename to avoid collisions.
+                String uuidFilename = UUID.randomUUID().toString();
+                String resultFilename = uuidFilename + "." + file.getOriginalFilename();
+
+                // upload the file to the directory we pointed.
+                file.transferTo(new File(this.uploadPath + resultFilename));
+
+                // save the name of the file to a certain quote in the database.
+                quote.setFilename(resultFilename);
+            }
+            this.quoteRepo.save(quote);
             
-            if (!uploadDir.exists())
-                uploadDir.mkdirs();
-            
-            // create a new unique filename to avoid collisions.
-            String uuidFilename = UUID.randomUUID().toString();
-            String resultFilename = uuidFilename + "." + file.getOriginalFilename();
-            
-            // upload the file to the directory we pointed.
-            file.transferTo(new File(this.uploadPath + resultFilename));
-            
-            // save the name of the file to a certain quote in the database.
-            quote.setFilename(resultFilename);
+            // remove the quote from the model. Or else, when successful adding a quote, the user will see
+            // the open form with the fields filled with the text that the user just added.
+            model.addAttribute("quote", null);
         }
         
-        this.quoteRepo.save(quote);
+        Iterable<Quote> quotes = this.quoteRepo.findAll();
+
+        model.addAttribute("quotes", quotes);
         
-        return "redirect:/main";
+        return "main";
     }
 }

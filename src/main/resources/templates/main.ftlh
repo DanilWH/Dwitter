@@ -15,14 +15,28 @@
     	<a class="btn btn-primary mb-3" data-toggle="collapse" href="#newQuoteCollapse" role="button" aria-expanded="false" aria-controls="newQuoteCollapse">
     		Add a new quote
   		</a>
-    	<div id="newQuoteCollapse" class="collapse">
+    	<div id="newQuoteCollapse" class="collapse <#if quote??>show</#if>">
    			<div class="form-group">
 	    		<form method="post" enctype="multipart/form-data">
 	    			<div class="form-group">
-		    			<input type="text" name="text" placeholder="...Enter your quote..." class="form-control"/>
+		    			<input type="text" name="text" placeholder="...Enter your quote..."
+                            class="form-control ${(textError??)?string('is-invalid', '')}"
+                            value="${(quote.text)?ifExists}"/>
+                        <#if textError??>
+                            <div class="invalid-feedback">
+                                ${textError}
+                            </div>
+                        </#if>
 	    			</div>
 	    			<div class="form-group">
-		    			<input type="text" name="tag" placeholder="Tag" class="form-control" />
+		    			<input type="text" name="tag" placeholder="Tag"
+                            class="form-control ${(tagError??)?string('is-invalid', '')}"
+                            value="${(quote.tag)?ifExists}"/>
+                        <#if tagError??>
+                            <div class="invalid-feedback">
+                                ${tagError}
+                            </div>
+                        </#if>
 	    			</div>
 	    			<div class="form-group">
 		    			<div class="custom-file">
@@ -47,7 +61,7 @@
 	        		<blockquote class="blockquote p-3">
 	        			<p>${quote.text}</p>
 	        			<footer class="blockquote-footer">
-	        				<small>${quote.authorName}</small>
+	        				<small>by ${quote.authorName}</small>
 	        			</footer>
 	        		</blockquote>
 	        		<div class="card-footer text-left p-0">

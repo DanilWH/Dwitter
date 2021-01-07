@@ -35,3 +35,6 @@ Introduction to:
  - Spring Boot Mail: Sending emails to users. Activation a user account using an activation code sent by email.
 #### 10'th commit
  - Spring Boot FlyWay: Databases migrations. How to make a snapshot of a database.
+#### 11'th commit
+ - Bean validation.
+ - Password encrypting with BCryptPasswordEncoder.
