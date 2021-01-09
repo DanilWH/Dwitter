@@ -32,9 +32,6 @@ public class User implements UserDetails {
     private String username;
     @NotBlank(message = "Password can't be empty")
     private String password;
-    @Transient
-    @NotBlank(message = "Password confirmation can't be empty")
-    private String confirmPassword;
     private boolean active;
 
     @Email(message = "Invalid email")
@@ -96,14 +93,6 @@ public class User implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public String getConfirmPassword() {
-        return this.confirmPassword;
     }
 
     public void setEmail(String email) {

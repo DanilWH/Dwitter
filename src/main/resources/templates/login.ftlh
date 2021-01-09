@@ -11,6 +11,12 @@
         </div>
     </#if>
 
+    <#if message??>
+        <div class="alert alert-${messageType}" role="alert">
+            ${message}
+        </div>
+    </#if>
+
 	<@ac.auth "/login" false/>
 	
 </@c.page>
