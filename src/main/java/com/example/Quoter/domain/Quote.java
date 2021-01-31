@@ -57,7 +57,7 @@ public class Quote {
         return tag;
     }
     
-    public User getUser() {
+    public User getAuthor() {
         return this.author;
     }
     

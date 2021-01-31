@@ -1,25 +1,14 @@
 package com.example.Quoter.domain;
 
-import java.util.Collection;
-import java.util.Set;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name="usr") // a single user will be stored in the table named "usr".
@@ -46,7 +35,23 @@ public class User implements UserDetails {
     @CollectionTable(name="user_role", joinColumns=@JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING) // we want the enum is stored as a string.
     private Set<Role> roles;
-    
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Quote> quotes;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
@@ -105,6 +110,14 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public Set<Quote> getQuotes() {
+        return this.quotes;
+    }
+
+    public void setQuotes(Set<Quote> quotes) {
+        this.quotes = quotes;
     }
 
     @Override
