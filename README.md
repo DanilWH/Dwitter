@@ -44,3 +44,5 @@ Introduction to:
  - rememberMe. How to store a user session in a database to prevent the user from logging out when closing the browser.
 #### 13'th commit
  - Spring Boot: JPA oneToMany
+#### 14'th commit
+ - Spring Boot: JPA ManyToMany - Subscriptions and subscribers.

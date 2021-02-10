@@ -1,17 +1,8 @@
 package com.example.Quoter.service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import com.example.Quoter.domain.Role;
 import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.UserRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -136,5 +130,17 @@ public class UserService implements UserDetailsService {
 
             mailSender.send(user.getEmail(), "Activation code", message);
         }
+    }
+
+    public void subscribe(User currentUser, User user) {
+        user.getSubscribers().add(currentUser);
+
+        this.userRepo.save(user);
+    }
+
+    public void unsubscribe(User currentUser, User user) {
+        user.getSubscribers().remove(currentUser);
+
+        this.userRepo.save(user);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -38,6 +39,24 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Quote> quotes;
+
+    @ManyToMany
+    @JoinTable( // an additional table is needed to ensure the relationship between the tables.
+            name = "user_subscriptions",
+            // "channel_id" is the user we're subscribed to (subscriptions).
+            joinColumns = { @JoinColumn(name = "channel_id") },
+            // "subscriber_id" is the user who is subscribed to us (subscribers).
+            inverseJoinColumns = { @JoinColumn(name = "subscriber_id") }
+    )
+    private Set<User> subscribers = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_subscriptions",
+            joinColumns = { @JoinColumn(name = "subscriber_id") },
+            inverseJoinColumns = { @JoinColumn(name = "channel_id") }
+    )
+    private Set<User> subscriptions = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -118,6 +137,22 @@ public class User implements UserDetails {
 
     public void setQuotes(Set<Quote> quotes) {
         this.quotes = quotes;
+    }
+
+    public Set<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(Set<User> subscribers) {
+        this.subscribers = subscribers;
+    }
+
+    public Set<User> getSubscribtions() {
+        return subscriptions;
+    }
+
+    public void setSubscribtions(Set<User> subscribtions) {
+        this.subscriptions = subscribtions;
     }
 
     @Override

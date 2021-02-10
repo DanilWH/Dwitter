@@ -1,15 +1,10 @@
 package com.example.Quoter.controller;
 
-import java.io.IOException;
-import java.util.Set;
-
-import javax.persistence.NoResultException;
-
 import com.example.Quoter.domain.Quote;
 import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.QuoteRepo;
 import com.example.Quoter.repos.UserRepo;
-
+import com.example.Quoter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.NoResultException;
+import java.io.IOException;
+import java.util.Set;
+
 @Controller
 class UserQuotesController {
 
@@ -31,6 +30,9 @@ class UserQuotesController {
     
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/user-quotes/{userId}")
     public String userQuotes(
@@ -44,6 +46,10 @@ class UserQuotesController {
 
         Set<Quote> quotes = user.getQuotes();
 
+        model.addAttribute("userChannel", user);
+        model.addAttribute("subscriptionsCount", user.getSubscribtions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("quotes", quotes);
         model.addAttribute("quote", quote);
         model.addAttribute("isCurrentUser",  currentUser.equals(user));
@@ -78,4 +84,5 @@ class UserQuotesController {
 
         return "redirect:/user-quotes/" + userId;
     }
+
 }
