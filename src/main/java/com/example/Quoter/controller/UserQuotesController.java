@@ -6,6 +6,7 @@ import com.example.Quoter.repos.QuoteRepo;
 import com.example.Quoter.repos.UserRepo;
 import com.example.Quoter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ import java.util.Set;
 
 @Controller
 class UserQuotesController {
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Autowired
     private QuoteRepo quoteRepo;
@@ -76,7 +80,7 @@ class UserQuotesController {
             if(!StringUtils.isEmpty(tag)) {
                 quote.setTag(tag);
             }
-            ControllerUtils.saveFile(file, quote);
+            ControllerUtils.saveFile(file, uploadPath, quote);
             this.quoteRepo.save(quote);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have the right to change someone's quote!");

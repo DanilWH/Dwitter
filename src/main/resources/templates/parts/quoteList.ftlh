@@ -1,8 +1,8 @@
 <#include "security.ftlh" />
 
-<div class="card-columns">
+<div class="card-columns" id="quote-list">
     <#list quotes as quote>
-        <div class="card text-center m-3">
+        <div class="card text-center m-3" data-id="${quote.id}">
             <#if quote.filename??>
                 <img src="/img/${quote.filename}" class="card-img-top p-2"/>
             </#if>

@@ -1,14 +1,8 @@
 package com.example.Quoter.controller;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import com.example.Quoter.domain.Quote;
 import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.QuoteRepo;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -56,7 +54,7 @@ public class MainController {
             @AuthenticationPrincipal User user,
             @Valid Quote quote,
             BindingResult bindingResult,
-            @RequestParam MultipartFile file,
+            @RequestParam("file") MultipartFile file,
             Model model
     ) throws IOException {
         quote.setAuthor(user);
@@ -66,7 +64,7 @@ public class MainController {
             model.mergeAttributes(errorsMap);
             model.addAttribute("quote", quote);
         } else {
-            ControllerUtils.saveFile(file, quote);
+            ControllerUtils.saveFile(file, uploadPath, quote);
 
             this.quoteRepo.save(quote);
             // remove the quote from the model. Or else, when successful adding a quote, the user will see

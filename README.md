@@ -46,3 +46,5 @@ Introduction to:
  - Spring Boot: JPA oneToMany
 #### 14'th commit
  - Spring Boot: JPA ManyToMany - Subscriptions and subscribers.
+#### 15'th commit
+ - Integration testing with Spring Testing

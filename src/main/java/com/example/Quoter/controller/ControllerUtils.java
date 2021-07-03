@@ -1,5 +1,10 @@
 package com.example.Quoter.controller;
 
+import com.example.Quoter.domain.Quote;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -7,17 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import com.example.Quoter.domain.Quote;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.multipart.MultipartFile;
-
 class ControllerUtils {
-
-    @Value("{upload.path}")
-    private static String uploadPath;
 
     static Map<String, String> getErrors(BindingResult bindingResult) {
         Collector<FieldError, ?, Map<String, String>> collector = Collectors.toMap(
@@ -29,10 +24,12 @@ class ControllerUtils {
 
     static void saveFile (
             MultipartFile file,
+            String uploadPath,
             Quote quote
     ) throws IOException {
         if (file != null && !file.isEmpty()) {
             // create the directory if it doesn't exist.
+            System.out.println(uploadPath);
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists())
