@@ -48,3 +48,5 @@ Introduction to:
  - Spring Boot: JPA ManyToMany - Subscriptions and subscribers.
 #### 15'th commit
  - Integration testing with Spring Testing
+#### 16'th commit
+ - Pagination implementation.

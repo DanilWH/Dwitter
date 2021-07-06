@@ -1,7 +1,10 @@
 <#include "security.ftlh" />
+<#import "pager.ftlh" as pager />
+
+<@pager.pager url page />
 
 <div class="card-columns" id="quote-list">
-    <#list quotes as quote>
+    <#list page.content as quote>
         <div class="card text-center m-3" data-id="${quote.id}">
             <#if quote.filename??>
                 <img src="/img/${quote.filename}" class="card-img-top p-2"/>
@@ -23,3 +26,5 @@
         <p>There are no quotes.</p>
     </#list>
 </div>
+
+<@pager.pager url page />

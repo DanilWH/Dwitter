@@ -5,6 +5,10 @@ import com.example.Quoter.domain.User;
 import com.example.Quoter.repos.QuoteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,18 +37,26 @@ public class MainController {
     }
     
     @GetMapping("/main")
-    public String main(@RequestParam(required=false, defaultValue="") String filter, Map<String, Object> model) {
-        Iterable<Quote> quotes;
-        
-        if (filter != null && !filter.isEmpty())
+    public String main(
+            @RequestParam(required=false, defaultValue="") String filter,
+            Map<String, Object> model,
+            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<Quote> page;
+
+        if (filter != null && !filter.isEmpty()) {
             // get the quotes that have the particular tag.
-            quotes = this.quoteRepo.findByTag(filter);
-        else
-            quotes = this.quoteRepo.findAll();
-        
-        model.put("quotes", quotes);
+            page = this.quoteRepo.findByTag(filter, pageable);
+        }
+        else {
+            page = this.quoteRepo.findAll(pageable);
+        }
+
+        model.put("page", page);
+        model.put("url", "/main");
+        model.put("pagerSequence", ControllerUtils.getPagerSequence(page));
         model.put("filter", filter);
-        
+
         return "main";
     }
     
