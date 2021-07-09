@@ -50,3 +50,8 @@ Introduction to:
  - Integration testing with Spring Testing
 #### 16'th commit
  - Pagination implementation.
+#### 17'th commit
+ - Spring Boot: Modular Testing and Mocking (mock object).
+ - Getting to know modular testing and mocking. Modular testing allows us to "mock" complex pieces of code
+   (e.g. connection to the database or any other external resources) and focusing on the main logic of a
+   method that we're testing.
