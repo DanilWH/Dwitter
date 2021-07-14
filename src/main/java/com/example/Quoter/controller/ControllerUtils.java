@@ -1,6 +1,7 @@
 package com.example.Quoter.controller;
 
 import com.example.Quoter.domain.Quote;
+import com.example.Quoter.domain.dto.QuoteDto;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -50,9 +51,9 @@ class ControllerUtils {
         }
     }
 
-    static List<Integer> getPagerSequence(Page<Quote> page) {
+    static List<Integer> getPagerSequence(Page<QuoteDto> page) {
         /*
-        * Pay attention: we always subtract one from page.getTotlaPages() when working with indexes
+        * Pay attention: we always subtract one from page.getTotalPages() when working with indexes
         * because page.getTotalPages() returns the total amount of pages, not the last page index!
         */
 

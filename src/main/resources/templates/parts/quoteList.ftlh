@@ -11,11 +11,21 @@
             </#if>
             <blockquote class="blockquote p-3">
                 <p>${quote.text}</p>
-                <footer class="blockquote-footer">
-                    <small>by <a href="/user-quotes/${quote.author.id}">${quote.authorName}</a></small>
-                    <#if quote.author.id == currentUserId>
-                        <a class="btn btn-primary" href="/user-quotes/${quote.author.id}?quote=${quote.id}">Edit</a>
-                    </#if>
+                <footer class="blockquote-footer container">
+                    <div class="row">
+                        <small class="col align-self-center">by <a href="/user-quotes/${quote.author.id}">${quote.authorName}</a></small>
+                        <a class="col align-self-center" href="/quotes/${quote.id}/like">
+                            <#if quote.meLiked>
+                                <i class="fas fa-thumbs-up"></i>
+                            <#else>
+                                <i class="far fa-thumbs-up"></i>
+                            </#if>
+                            ${quote.likes}
+                        </a>
+                        <#if quote.author.id == currentUserId>
+                            <a class="col btn btn-primary" href="/user-quotes/${quote.author.id}?quote=${quote.id}">Edit</a>
+                        </#if>
+                    </div>
                 </footer>
             </blockquote>
             <div class="card-footer text-left p-0">

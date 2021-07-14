@@ -55,3 +55,8 @@ Introduction to:
  - Getting to know modular testing and mocking. Modular testing allows us to "mock" complex pieces of code
    (e.g. connection to the database or any other external resources) and focusing on the main logic of a
    method that we're testing.
+#### 18'th commit
+ - Spring Boot: "Likes" implementation using HQL (JPQL)
+ - It's not a good practice to operate with the database on the controller layer.
+ - Once a database migrations have been created, it's not allowed to alter them.
+   All the changes that you want to make in the database have to be done in new migrations.

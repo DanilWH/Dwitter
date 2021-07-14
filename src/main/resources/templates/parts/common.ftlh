@@ -11,6 +11,8 @@
 	    <!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous" />
 		<script src="https://www.google.com/recaptcha/api.js" async="true" defer="defer"></script>
+		<!-- Font Awesome. -->
+		<script src="https://kit.fontawesome.com/69a74d55b8.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<#include "navbar.ftlh" />

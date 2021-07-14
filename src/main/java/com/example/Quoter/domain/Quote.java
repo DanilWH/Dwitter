@@ -1,22 +1,19 @@
 package com.example.Quoter.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import com.example.Quoter.domain.util.QuoteHelper;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Quote {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    
+
     @NotBlank(message = "Please fill the field")
     @Length(max = 2048, message = "Message is too long (more than 2kB)")
     private String text;
@@ -28,6 +25,14 @@ public class Quote {
     private User author;
     
     private String filename;
+
+    @ManyToMany
+    @JoinTable(
+            name = "quote_likes",
+            joinColumns = { @JoinColumn(name = "quote_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private Set<User> likes = new HashSet<>();
     
     public Quote() {
         // create an empty constructor so that
@@ -42,7 +47,7 @@ public class Quote {
     }
     
     public String getAuthorName() {
-        return (this.author != null)? this.author.getUsername() : "<anonymus>";
+        return QuoteHelper.getAuthorName(this.author);
     }
     
     public Long getId() {
@@ -83,5 +88,13 @@ public class Quote {
     
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public Set<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Set<User> likes) {
+        this.likes = likes;
     }
 }
