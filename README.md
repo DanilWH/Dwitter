@@ -60,3 +60,5 @@ Introduction to:
  - It's not a good practice to operate with the database on the controller layer.
  - Once a database migrations have been created, it's not allowed to alter them.
    All the changes that you want to make in the database have to be done in new migrations.
+#### 19'th commit
+ - Spring Boot + Turbolinks: Speeding up the pages display time.
